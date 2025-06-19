@@ -5,7 +5,9 @@ import com.spring.jdbc.car.rental.exception.CustomException;
 import com.spring.jdbc.car.rental.model.Booking;
 import com.spring.jdbc.car.rental.model.filter.BookingFilter;
 import com.spring.jdbc.car.rental.model.filter.CarFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,16 +17,22 @@ public class BookingService {
     private final BookingDao bookingDao;
     private final CarService carService;
 
+    @Autowired
+    private EmailSenderService senderService;
     public BookingService(BookingDao bookingDao, CarService carService) {
         this.bookingDao = bookingDao;
         this.carService = carService;
     }
 
+    @Transactional(rollbackFor = Exception.class, timeout = 30)
     public void createBooking(Booking booking) throws Exception {
         try {
             boolean isAvailable = carService.checkIfCarIsAvailable(booking.getCarId(), booking.getStartDate(), booking.getEndDate());
             if (isAvailable) {
                 bookingDao.createBooking(booking);
+                senderService.sendSimpleEmail("goldcarsalbania0@gmail.com",
+                        "Booking Confirmation",
+                        "Your booking for car ID: " + booking.getCarId() + " from " + booking.getStartDate() + " to " + booking.getEndDate() + " has been confirmed.");
             } else {
                 throw new CustomException("Car is not available at these dates");
             }
