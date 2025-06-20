@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BookingService {
@@ -30,9 +31,18 @@ public class BookingService {
             boolean isAvailable = carService.checkIfCarIsAvailable(booking.getCarId(), booking.getStartDate(), booking.getEndDate());
             if (isAvailable) {
                 bookingDao.createBooking(booking);
-                senderService.sendSimpleEmail("goldcarsalbania0@gmail.com",
-                        "Booking Confirmation",
-                        "Your booking for car ID: " + booking.getCarId() + " from " + booking.getStartDate() + " to " + booking.getEndDate() + " has been confirmed.");
+
+                Map<String, String> vars = Map.of(
+                        "customerName", booking.getCustomerName (),
+                        "customerPhone", booking.getCustomerPhone (),
+                        "carId", String.valueOf (booking.getCarId ()),
+                        "location", booking.getLocation (),
+                        "pickupDate", booking.getStartDate (),
+                        "returnDate", booking.getEndDate ()
+                );
+                senderService.sendSimpleEmail(vars,
+                        "goldcarsalbania0@gmail.com",
+                        "Booking Confirmation");
             } else {
                 throw new CustomException("Car is not available at these dates");
             }
