@@ -54,6 +54,7 @@ public class CarDao {
                     "                   ON car.id = booking.carId " +
                     "                       AND booking.startDate < ? " +
                     "                       AND booking.endDate > ? " +
+                    "                       AND booking.status = 'Completed' " +
                     " WHERE booking.id IS NULL " +
                     " AND 1=1 "
             );

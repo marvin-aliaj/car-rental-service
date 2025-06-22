@@ -28,14 +28,16 @@ public class BookingService {
     @Transactional(rollbackFor = Exception.class, timeout = 30)
     public void createBooking(Booking booking) throws Exception {
         try {
-            boolean isAvailable = carService.checkIfCarIsAvailable(booking.getCarId(), booking.getStartDate(), booking.getEndDate());
+            boolean isAvailable = carService.checkIfCarIsAvailable(booking.getCar().getId(), booking.getStartDate(), booking.getEndDate());
             if (isAvailable) {
                 bookingDao.createBooking(booking);
 
                 Map<String, String> vars = Map.of(
                         "customerName", booking.getCustomerName (),
                         "customerPhone", booking.getCustomerPhone (),
-                        "carId", String.valueOf (booking.getCarId ()),
+                        "carBrand", String.valueOf (booking.getCar ().getBrand()),
+                        "carModel", String.valueOf (booking.getCar ().getModel()),
+                        "carYear", String.valueOf (booking.getCar ().getYear()),
                         "location", booking.getLocation (),
                         "pickupDate", booking.getStartDate (),
                         "returnDate", booking.getEndDate ()

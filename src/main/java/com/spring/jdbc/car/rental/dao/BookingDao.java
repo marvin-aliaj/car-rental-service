@@ -35,7 +35,7 @@ public class BookingDao {
                 PreparedStatement ps = connection.prepareStatement(sql, new String[]{"id"}); // "id" is the name of the primary key column
                 ps.setString(1, booking.getStartDate());
                 ps.setString(2, booking.getEndDate());
-                ps.setLong(3, booking.getCarId());
+                ps.setLong(3, booking.getCar().getId());
                 ps.setString(4, booking.getLocation());
                 ps.setString(5, booking.getCustomerName());
                 ps.setString(6, booking.getCustomerEmail());
