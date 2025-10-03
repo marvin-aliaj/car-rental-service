@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f7;
+            color: #333333;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 30px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            font-size: 20px;
+            font-weight: bold;
+            color: #0057D9;
+            margin-bottom: 20px;
+        }
+
+        .details {
+            margin-bottom: 20px;
+        }
+
+        .details th {
+            text-align: left;
+            padding-right: 15px;
+        }
+
+        .footer {
+            font-size: 14px;
+            color: #888888;
+            margin-top: 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #0057D9;
+            color: #ffffff !important;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">You have a new booking!</div>
+    <p>Hello <strong>Admin</strong>,</p>
+    <p>Here are the new booking details:</p>
+
+    <table class="details">
+        <tr>
+            <th>Car:</th>
+            <td>${carBrand} ${carModel}, ${carYear}</td>
+        </tr>
+        <tr>
+            <th>Pickup Date:</th>
+            <td>${pickupDate}</td>
+        </tr>
+        <tr>
+            <th>Return Date:</th>
+            <td>${returnDate}</td>
+        </tr>
+        <tr>
+            <th>Customer Name:</th>
+            <td>${customerName}</td>
+        </tr>
+        <tr>
+            <th>Customer Phone:</th>
+            <td>${customerPhone}</td>
+        </tr>
+        <tr>
+            <th>Location:</th>
+            <td>${location}</td>
+        </tr>
+    </table>
+
+    <p>Check your new booking in the Admin Panel</p>
+
+    <p>
+        <a class="cta-button" href="https://goldcarsalbania.com/admin-panel">Check your admin panel here.</a>
+    </p>
+
+    <div class="footer">
+        &copy; 2025 GoldCarsAlbania. All rights reserved.<br/>
+        This is an automated message — please do not reply.
+    </div>
+</div>
+</body>
+</html>
